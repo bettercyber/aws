@@ -59,7 +59,7 @@ export AWS_ACCESS_KEY_ID=XXXXXXXXXXXXX
 export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxx
 export AWS_SESSION_TOKEN=xxxxxxxxxxxxx
 ```
-5. Clear the envrionmental variables before requesting a new session token:
+5. Clear the environmental variables before requesting a new session token:
 ```
 unset AWS_ACCESS_KEY_ID
 unset AWS_SECRET_ACCESS_KEY

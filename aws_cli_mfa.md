@@ -39,7 +39,7 @@ The following policy forces IAM users to enable MFA on their accounts before the
 ```
 
 ### CLI Long-term Credentials
-IAM users need to request a session token before they can access AWS resources via AWS CLI. A session token is valid for 12 hours.
+IAM users need to request a session token before they can access AWS resources via AWS CLI. A session token is valid for 12 hours by default.
 
 #### Request Session Token
 Follow the steps outlined below to request a session token:

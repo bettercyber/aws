@@ -1,7 +1,7 @@
 ## AWS MFA IAM Policy
 
 ### Description
-The following policy forces IAM users to enable MFA before they can access any AWS resources via the Console or CLI.
+The following policy forces IAM users to enable MFA on their accounts before they can access any AWS resources via the Console or CLI.
 
 ### Policy
 ```

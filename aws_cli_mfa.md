@@ -5,7 +5,7 @@ The following policy forces IAM users to enable MFA on their accounts before the
 
 ### Policy
 ```
-  {
+{
     "Version": "2012-10-17",
     "Statement": [
         {

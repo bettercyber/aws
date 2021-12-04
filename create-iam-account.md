@@ -1,8 +1,11 @@
 # Create an IAM User Account
 
-1. Search IAM in the AWS search bar. 
-2. Go to IAM and select Users under Access Management (left menu)
-3. Add a New User:
+1. Log in to the AWS Console and type _IAM_ in the search bar
+
+![image](https://user-images.githubusercontent.com/78450870/144706096-93034afc-8db7-47d5-9a89-e8387e0c1784.png)
+
+3. Go to **IAM** and select **Users** under _Access Management_
+4. Add a New User:
    * Type in the user name
    * Under "Select AWS access type", check the following:
       * Access Key - Programmatic Access (if the developer needs access to AWS' APIs, which most of them do)

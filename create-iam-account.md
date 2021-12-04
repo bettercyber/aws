@@ -8,7 +8,7 @@
 
 ![image](https://user-images.githubusercontent.com/78450870/144706175-daf526d2-f2be-4aef-874b-639c48583fb3.png)
 
-3. Select **Create Group**
+3. Select **Create group**
 
 ![image](https://user-images.githubusercontent.com/78450870/144706207-3ac8c7b4-5ef9-450b-896d-f470c895ab9f.png)
 
@@ -20,7 +20,7 @@
 
 ![image](https://user-images.githubusercontent.com/78450870/144706315-33596a8e-8d23-4803-85fa-831f691b655d.png)
 
-6. Within the same screen, scroll down and select **Create Group**
+6. Within the same screen, scroll down and select **Create group**
 
 ![image](https://user-images.githubusercontent.com/78450870/144706350-c5c7a80e-8b6a-4758-b78b-0cee4a8bed54.png)
 

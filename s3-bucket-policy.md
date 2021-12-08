@@ -14,9 +14,7 @@ Deny interactive access to an S3 bucket for all users.
       ],
       "Effect": "Deny",
       "Resource": "arn:aws:s3:::[bucket-name]",
-      "Principal": {
-        "AWS": [
-          "arn:aws:iam::[account_no]:user/*"
+      "Principal": "*"
         ]
       }
     }

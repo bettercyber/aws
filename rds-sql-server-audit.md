@@ -28,12 +28,6 @@ Follow these steps to enable SQL server auditing for an RDS instance:
 
 ![image](https://user-images.githubusercontent.com/78450870/145227061-fe9b7613-7efa-4322-b527-41f163395c73.png)
 
-7. Select the IAM role that will execute the audit logging task
-
-![image](https://user-images.githubusercontent.com/78450870/145227311-1cb44450-eb54-490c-9278-79b72680aafb.png)
-
-8. Under *Scheduling*, select **Immediately** and then **Add option**
+7. Under *Scheduling*, select **Immediately** and then **Add option**
 
 ![image](https://user-images.githubusercontent.com/78450870/145227482-0f85318c-0891-4152-b15e-7f505dd10fce.png)
-
-

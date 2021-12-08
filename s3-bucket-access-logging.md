@@ -1,6 +1,6 @@
 # S3 Bucket Server Access Logging
 
-Enable S3 bucket access logging as follows:
+Enable S3 bucket server access logging as follows:
 
 1. Log in to the AWS Console, navigate to S3, and select **Buckets**
 

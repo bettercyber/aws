@@ -2,7 +2,10 @@
 
 Deny interactive access to an S3 bucket for all users. 
 
-`{
+### Bucket Policy
+
+```
+{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -18,4 +21,5 @@ Deny interactive access to an S3 bucket for all users.
       }
     }
   ]
-}`
+}
+```

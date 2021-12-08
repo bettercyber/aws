@@ -6,7 +6,7 @@ Enable S3 bucket server access logging as follows:
 
 ![image](https://user-images.githubusercontent.com/78450870/145221880-00120195-1c5c-4030-9e14-a77867e36cbe.png)
 
-2. Select the bucket for which logging needs to be enabled and navigate to the **Properties** tab
+2. Select the bucket on which logging needs to be enabled and navigate to the **Properties** tab
 
 ![image](https://user-images.githubusercontent.com/78450870/145222061-f98b873b-8189-46c8-956f-a411aa60779e.png)
 

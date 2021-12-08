@@ -1,6 +1,6 @@
 # AWS S3 Bucket Policy
 
-
+The bucket policy described in this document restricts access to S3 to a specific IAM role. 
 
 ### IAM Role
 
@@ -57,8 +57,7 @@ aws iam get-role --role-name *$ROLEID*
 ```
 The bucket policy below is applied to the bucket named $BUCKETNAME under the Permissions tab.
 
-![image](https://user-images.githubusercontent.com/78450870/145206300-f2117de5-13df-452b-acdc-c05bbffd1e24.png)
-
+#### Bucket Policy
 ```
 {
   "Version": "2012-10-17",
@@ -75,3 +74,7 @@ The bucket policy below is applied to the bucket named $BUCKETNAME under the Per
   ]
 }
 ```
+
+![image](https://user-images.githubusercontent.com/78450870/145206300-f2117de5-13df-452b-acdc-c05bbffd1e24.png)
+
+

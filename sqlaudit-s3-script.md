@@ -1,4 +1,4 @@
-# Monitoring RDS Instance SQL Server Audit Logs with Wazuh
+# Monitoring AWS RDS Instance SQL Server Audit Logs with Wazuh
 
 This document covers the following steps:
 

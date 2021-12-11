@@ -21,7 +21,7 @@ The following commands create a new file named sqlaudit.sh, copy the bash script
 ```
 touch sqlaudit.sh
 echo "#!/bin/bash
-aws s3 sync s3://[$BUCKET_NAME]/ ~/sqlaudit --include "*.json"
+aws s3 sync s3://[$BUCKET_NAME]/ ~/sqlaudit
 sed -s -r 's/^\{\"Items\"\:\[//' ~/sqlaudit/*.json --in-place
 sed -s -r 's/\{\"\event_time\"/\{\"integration\"\:\"sqlaudit\"\,\"event_time\"/g' ~/sqlaudit/*.json --in-place
 sed -s -r 's/\]\}$//' ~/sqlaudit/*.json --in-place

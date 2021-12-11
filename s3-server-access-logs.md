@@ -92,7 +92,7 @@ Add the following custom decoders at the end of /var/ossec/etc/decoders/local_de
 </decoder>
 
 <decoder name="s3-server-access-log">
-    <type>web-log</type>
+    <type>syslog</type>
     <parent>s3-server-access-log-date</parent>
     <regex>^(\w+) (\S+) [\d+/\w+/\d+:\d+:\d+:\d+ \p\d+] (\d+.\d+.\d+.\d+) (\S+) \w+ (\S+.\S+.\S+) (\S+) ("\w+ /\S+ HTTP/\d+.\d+") (\d+) (\S+) (\S+) \S+ \S+ \S+ ("\S+") ("\.+") \S+ \S+ \S+ \S+ (\S+) (\S+) \S+ (\S+)</regex>
     <order>dstuser, bucketname, srcip, srcuser, operation, key, url, status, action, bytes, referer, useragent, authtype, hostheader, arn</order>

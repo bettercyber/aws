@@ -12,12 +12,13 @@ This document covers the following steps:
 
 The s3accesslogs.sh bash script downloads new files from the specified AWS S3 bucket to the specified subdirectory. 
 
-The following commands create a new file named s3accesslogs.sh, copy the bash script to the new file, and make the file executable. 
+The following commands create a new file named s3accesslogs.sh, copy the bash script to the new file, and make the file executable. Replace $BUCKET_NAME and $FOLDER_NAME with the bucket and folder names. 
+
 ```
 mkdir ~/s3accesslogs
 touch s3accesslogs.sh
 echo "#!/bin/bash
-aws s3 sync s3://bastionpod.rdslogs/s3serverlogs/ ~/s3accesslogs" > s3accesslogs.sh
+aws s3 sync s3://$BUCKET_NAME/$FOLDER_NAME/ ~/s3accesslogs" > s3accesslogs.sh
 chmod +x s3accesslogs.sh
 ```
 Run the following command to test the script:

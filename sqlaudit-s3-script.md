@@ -17,7 +17,7 @@ The following bash script executes the following actions:
 4. Removes the string *]}* from the end of the file.
 5. Replaces thes tring *},* with *}\n* to place each log in a separate line.
 
-The following command creates a new file named sqlaudit.sh, copies the bash script to the new file, and makes the file executable. 
+The following commands create a new file named sqlaudit.sh, copy the bash script to the new file, and make the file executable. 
 ```
 touch sqlaudit.sh
 echo "#!/bin/bash
@@ -230,61 +230,3 @@ ID: 100100 - 100199
     
 </group>
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

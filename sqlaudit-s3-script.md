@@ -12,20 +12,28 @@ This document covers the following steps:
 The following bash script executes the following actions:
 
 1. Downloads new files from the specified AWS S3 bucket to the specified subdirectory. 
-2. Removes the string *{"Items":[{* from the beginning of the file.
-3. Replaces the string *{"event_time"* with *{"integration":"sqlaudit","event_time"*
-4. Removes the string *]}* from the end of the file.
-5. Replaces thes tring *},* with *}\n* to place each log in a separate line.
+2. Finds any file newer than 10 minutes and:
+    * Removes the string *{"Items":[{* from the beginning of the file.
+    * Replaces the string *{"event_time"* with *{"integration":"sqlaudit","event_time"*
+    * Removes the string *]}* from the end of the file.
+    * Replaces thes tring *},* with *}\n* to place each log in a separate line.
+3. Deletes any JSON files stored in the specified S3 bucket to prevent re-writing the files in the next script invocation. 
 
 The following commands create a new file named sqlaudit.sh, copy the bash script to the new file, and make the file executable. 
 ```
 touch sqlaudit.sh
 echo "#!/bin/bash
-aws s3 sync s3://[$BUCKET_NAME]/ ~/sqlaudit
-sed -s -r 's/^\{\"Items\"\:\[//' ~/sqlaudit/*.json --in-place
-sed -s -r 's/\{\"\event_time\"/\{\"integration\"\:\"sqlaudit\"\,\"event_time\"/g' ~/sqlaudit/*.json --in-place
-sed -s -r 's/\]\}$//' ~/sqlaudit/*.json --in-place
-sed -s -r 's/\}\,/\}\n/g' ~/sqlaudit/*.json --in-place" > sqlaudit.sh
+aws s3 //bastionpod.rdslogs/ ~/sqlaudit
+FILES=$(find ~/sqlaudit -mmin -10 | grep RDSAudit)
+for file in $FILES ; do
+sed -s -r 's/^\{\"Items\"\:\[//' $file --in-place
+sed -s -r 's/\{\"\event_time\"/\{\"integration\"\:\"sqlaudit\"\,\"event_time\"/g' $file --in-place
+sed -s -r 's/\]\}$//' $file --in-place
+sed -s -r 's/\}\,/\}\n/g' $file --in-place
+done
+unset FILES
+aws s3 rm s3://bastionpod.rdslogs/ --recursive --include="/*.*"" > ~/sqlaudit.sh
+```
 chmod +x sqlaudit.sh
 ```
 Run the following command to test the script:

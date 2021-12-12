@@ -5,8 +5,7 @@ This document covers the following steps:
 1. Create a bash script on the Wazuh Manager to download S3 server access log files from a specified AWS S3 bucket. 
 2. Configure Wazuh's command wodle to execute the script every 10 minutes.
 3. Configure Wazuh to monitor and analyze the S3 server access log files. 
-4. Configure custom decoders to parse the S3 server access logs.
-5. Configure custom rules to alert on abnormal S3 server access.
+4. Configure custom rules to alert on abnormal S3 server access.
 
 ## Configure the Bash Script
 
@@ -17,8 +16,17 @@ The following commands create a new file named s3accesslogs.sh, copy the bash sc
 ```
 mkdir ~/s3accesslogs
 touch s3accesslogs.sh
-echo "#!/bin/bash
-aws s3 sync s3://$BUCKET_NAME/$FOLDER_NAME/ ~/s3accesslogs" > s3accesslogs.sh
+echo "#/bin/bash sqlaudit.sh 
+aws s3 sync s3://bastionpod.s3logs/ ~/s3accesslogs
+S3FILES=$(find ~/s3accesslogs -mmin -2 | grep txt)
+for s3file in $S3FILES ; do
+jq -R -n -c '[inputs|split(" ")|{("bucket-owner"):(.[0]),("bucket-name"):(.[1]),("time"):(.[2]),("remote-ip"):(.[3]),("requester"):(.[4]),("requester-id"):(.[5]),("operation
+"):(.[6]),("key"):(.[7]),("request-uri"):(.[8]),("http-status-code"):(.[9]),("error-code"):(.[10]),("bytes-sent"):(.[11]),("object-size"):(.[12]),("total-time"):(.[13]),("turn-aroun
+d-time"):(.[14]),("referer"):(.[15]),("user-agent"):(.[16]),("version-id"):(.[17]),("host-id"):(.[18]),("signature-version"):(.[19]),("cipher-suite"):(.[20]),("authentication-type")
+:(.[21]),("host-header"):(.[22]),("tls-version"):(.[23]),("arn"):(.[24])}] | add' $s3file > $s3file.json
+done
+unset S3FILES
+aws s3 rm s3://[$BUCKET_NAME]/[$FOLDER_NAME]/ --recursive --include="/*.*"" > s3accesslogs.sh
 chmod +x s3accesslogs.sh
 ```
 Run the following command to test the script:
@@ -47,56 +55,9 @@ Add the following configuration to /var/ossec/etc/ossec.conf to monitor S3 serve
 
 ```
 <localfile>
-    <log_format>syslog</log_format>
-    <location>/root/s3accesslogs/*.txt</location>
+    <log_format>json</log_format>
+    <location>/root/s3accesslogs/*.json</location>
 </localfile>
-```
-
-## Configure Custom Decoders
-
-Add the following custom decoders at the end of /var/ossec/etc/decoders/local_decoder.xml and restart the Wazuh Manager. 
-
-```
-<!-- S3 server access log format:
-  - <bucket_owner> <bucket> <time> <remote-ip> <requester> <requester_id> <operation> <key> <request-uri> <http-status-code> <error-code> <bytes-sent> <object-size> <total-time> <turn-around-time> <referer> <user-agent> <version-id> <host-id> <signature-version> <cipher-suite> <authentication-type> <host-header> <tls-version> <ARN>
-  - bucket_owner: \S+
-  - bucket: \S+
-  - time: \[\d+\/\w+\/\d+\:\d+\:\d+\:\d+ \+\d+\]
-  - remote-ip: \d+\.\d+\.\d+\.\d+
-  - requester: \S+
-  - requester_id: \S+
-  - operation: \w+\.\w+\.\w+
-  - key: \S+
-  - request-uri: \"\w+ \/\S+ HTTP\/\d+\.\d+\"
-  - http-status-code: \d+
-  - error-code: \S+
-  - bytes-sent: \d+
-  - object-size: \d+
-  - total-time: \d+
-  - turn-around-time: \d+
-  - referer: \"(http|https)\:\/\/\S+\"
-  - user-agent: \"\S+\"
-  - version-id: \S+
-  - host-id: \S+
-  - signature-version: \S+
-  - cipher-suite: \S+
-  - authentication-type: \S+
-  - host-header: \S+
-  - tls-version: \S+
-  - ARN: \S+
-  -->
-  
-<decoder name="s3-server-access-log-date">
-  <prematch>^\w+ \S+ [\d+/\w+/\d+:\d+:\d+:\d+ \p\d+] </prematch>
-  <!-- 70e3c6002de77e45aea5d6cfc88c8e716c2b452aa56c776b0f82b211105dafe0 introxl-db-backups [09/Dec/2021:14:38:45 +0000] -->
-</decoder>
-
-<decoder name="s3-server-access-log">
-    <type>syslog</type>
-    <parent>s3-server-access-log-date</parent>
-    <regex>^(\w+) (\S+) [\d+/\w+/\d+:\d+:\d+:\d+ \p\d+] (\d+.\d+.\d+.\d+) (\S+) \w+ (\S+.\S+.\S+) (\S+) ("\w+ /\S+ HTTP/\d+.\d+") (\d+) (\S+) (\S+) \S+ \S+ \S+ ("\S+") ("\.+") \S+ \S+ \S+ \S+ (\S+) (\S+) \S+ (\S+)</regex>
-    <order>dstuser, bucketname, srcip, srcuser, operation, key, url, status, action, bytes, referer, useragent, authtype, hostheader, arn</order>
-</decoder>
 ```
 
 ## Configure Custom Rules
@@ -111,7 +72,7 @@ ID: 100200 - 100299
 <group name="aws,s3">
 
     <rule id="100200" level="0">
-        <decoded_as>s3-server-access-log-date</decoded_as>
+        <decoded_as>json</decoded_as>
         <description>AWS S3 server access log messages grouped.</description>
     </rule>
 

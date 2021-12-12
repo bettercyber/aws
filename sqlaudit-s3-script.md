@@ -34,6 +34,7 @@ done
 unset FILES
 aws s3 rm s3://bastionpod.rdslogs/ --recursive --include="/*.*"" > ~/sqlaudit.sh
 ```
+```
 chmod +x sqlaudit.sh
 ```
 Run the following command to test the script:
